@@ -8,5 +8,5 @@ from django.http import HttpResponse
 
 
 def view_todos (request):
-	return HttpResponse("hello ticked2")
-	
+    return HttpResponse("hello ticked2")
+    
