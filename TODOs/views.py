@@ -132,7 +132,7 @@ def addTodoView(request):
         else:
             output = "This should not happen: request method is POST, but neither headline or bodytext is found.."
             return HttpResponse(output) 
-        return redirect(todos)
+        return redirect(view_todos)
     else:
         c = {}
         c.update(csrf(request))        
@@ -157,7 +157,7 @@ def editTodoView(request, todoId):
             else:
                 output = "This should not happen: you seem to have come here from the edit-form, but neither headline or bodytext is found.."
                 return HttpResponse(output) 
-            return redirect(todos)
+            return redirect(view_todos)
     else:
         TODOs = request.user.todo_set.all()    
         c = {'TODO': todoToEdit}
@@ -174,7 +174,7 @@ def tickTodoView(request, todoId):
     if todoToTick.owner == request.user:
         todoToTick.todoIsTicked = True
         todoToTick.save()
-        return redirect(todos)
+        return redirect(view_todos)
     else:
         output = "It seems that caused the server to try to tick someone elses TODO.."
         return HttpResponse(output)
@@ -200,7 +200,7 @@ def deleteTodoView(request, todoId):
     todoToDelete = Todo.objects.get(id=todoId)
     if todoToDelete.owner == request.user:
         todoToDelete.delete()
-        return redirect(todos)
+        return redirect(view_todos)
     else:
         output = "It seems that caused the server to try to delete someone elses TODO.."
         return HttpResponse(output) 
@@ -213,7 +213,7 @@ def loginView(request):
     if user is not None:
         if user.is_active:
             login(request, user)
-            return redirect(todos)
+            return redirect(view_todos)
         else:
             output = "a 'disabled account' error message"
             return HttpResponse(output)
@@ -223,7 +223,7 @@ def loginView(request):
 
 def logoutView(request):
     logout(request)
-    return redirect(todos)
+    return redirect(view_todos)
 
 def newUserView(request):
     c = {}
@@ -240,11 +240,11 @@ def createUserView(request):
     if user is not None:
         if user.is_active:
             login(request, user)
-            return redirect(todos)
+            return redirect(view_todos)
         else:
             output = "a 'disabled account' error message: this should not happen when creating a new user and logging him in..."
             return HttpResponse(output)
     else:
         output = "user/password invalid: this should not happen when creating a new user and logging him in..."
         return HttpResponse(output)    
-    return redirect(todos)
+    return redirect(view_todos)
