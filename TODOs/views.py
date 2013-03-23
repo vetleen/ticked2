@@ -154,11 +154,11 @@ def tickTodoView(request, todoId):
     if not request.user.is_authenticated():
         output = "You must be logged in to do that..."
         return HttpResponse(output)
-    try:
-        todoToTick = Todo.objects.get(id=todoId)
-    except DoesNotExist:
-        output = "Sneaky, Sneaky, not allowed.."
-        return HttpResponse(output)
+##    try:
+    todoToTick = Todo.objects.get(id=todoId)
+##    except DoesNotExist:
+##        output = "Sneaky, Sneaky, not allowed.."
+##        return HttpResponse(output)
     if todoToTick.owner == request.user:
         todoToTick.todoIsTicked = True
         todoToTick.save()
