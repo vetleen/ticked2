@@ -1,0 +1,39 @@
+{% extends "base.html" %}  
+{% block content %}   
+{% if TODOs%}
+<div>	{% if currentpage != 1 %}
+	<a href="/todos/1/">first</a> |
+	{% endif %}
+	{% if previouspage %}
+	<a href="/todos/{{ previouspage }}/">previous</a> |
+	{% endif %}
+	Displaying page: {{ currentpage }} of {{ lastpage }}
+	{% if nextpage %}
+	| <a href="/todos/{{ nextpage }}/">next</a> |
+	{% endif %}
+	{% if currentpage != lastpage %}
+	<a href="/todos/{{ lastpage }}/">last</a>
+	{% endif %}
+</div>
+{% endif %}
+ <section id="todos-section">
+		{% for TODOs in TODOs %}
+		  <article class="todo">
+			<h1>{{ TODOs.headLine|truncatechars:50 }}</h1>
+			<p>{{ TODOs.bodyText|truncatechars:300|urlize|linebreaksbr  }}</p>
+			<nav class="todo-options">
+			  <ul>
+			    <li><a href="/deletetodo/{{ TODOs.id }}/" title="Click to delete this TODO">Delete</a></li>
+  			    <li><a href="/edittodo/{{ TODOs.id }}/" title="Click to edit this TODO">Edit</a></li>
+			    <li><a href="/ticktodo/{{ TODOs.id }}/" title="Click to mark this TODO as done">Tick!</a></li>
+			  </ul>
+			</nav>
+		  </article>
+		{% empty %}
+		<p> There's doesn't seem to be anything here...</p>
+		{% endfor %}
+    </section> <!-- todos-section -->
+{% endblock content %}
+
+
+c = {'TODOs': todos_to_send, 'next1': link_next_1, 'next2': link_next_2, 'previous1': link_previous_1, 'previous2': link_previous_2, 'currentpage': current_page, 'lastpage': number_of_pages_possible}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}  
+{% block content %}   
+    <section id="new-user-section">
+      <div id="new-user-box">
+      <form method="post" action="/createuser/" id="create-user-form">{% csrf_token %}	
+        <fieldset>
+        <dl>
+          <dt><label>E-mail:</label></dt><dd><input type="email" id="username" name="username" placeholder="E-mail" required /></dd>
+        </dl>
+        </fieldset>
+        <fieldset>
+        <dl>
+          <dt><label>Password:</label></dt><dd><input type="password" id="password" name="password" placeholder="Password" required /></dd>
+        </dl>
+        </fieldset>
+        <fieldset>
+        <dl>
+          <dt>&nbsp;</dt><dd><input type="submit" value="Create user" />
+        </dl>
+        </fieldset>
+      </form>
+      </div>
+    </section> <!-- new-user-section -->
+{% endblock content %}

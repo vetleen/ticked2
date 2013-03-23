@@ -1,0 +1,26 @@
+{% extends "base.html" %}  
+{% block content %}   
+    <section id="new-user-section">
+      <div id="new-todo-box">
+
+      <form method="post" action="/edittodo/{{ TODO.id }}/" id="edit-todo-form">{% csrf_token %}	
+        <fieldset>
+        <ul>
+          <li><textarea id="headline" name="headline" placeholder="{{ TODO.headLine }}" maxlength="50" rows="2" cols="35" />{{ TODO.headLine }}</textarea></li>
+        </ul>
+        </fieldset>
+        <fieldset>
+        <ul>
+          <li><textarea id="bodytext" name="bodytext" maxlength="300" rows="10" cols="35" placeholder="{{ TODO.bodyText }}" />{{ TODO.bodyText }}</textarea></li>
+        </ul>
+        </fieldset>
+        <fieldset>
+        <ul>
+          <li><input type="submit" value="Update" /></li>
+        </ul>
+        </fieldset>
+      </form>
+
+      </div>
+    </section> <!-- new-user-section -->
+{% endblock content %}

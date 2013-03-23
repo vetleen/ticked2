@@ -1,0 +1,26 @@
+{% extends "base.html" %}  
+{% block content %}   
+    <section id="new-user-section">
+      <div id="new-todo-box">
+
+      <form method="post" action="/addtodo/" id="add-todo-form">{% csrf_token %}	
+        <fieldset>
+        <ul>
+          <li><textarea id="headline" name="headline" placeholder="Enter a 50 letter headline for your TODO..." maxlength="50" rows="2" cols="35" /></textarea></li>
+        </ul>
+        </fieldset>
+        <fieldset>
+        <ul>
+          <li><textarea id="bodytext" name="bodytext" maxlength="300" rows="10" cols="35" placeholder="Add a more detailed description of your TODO in up to 300 words here..." /></textarea></li>
+        </ul>
+        </fieldset>
+        <fieldset>
+        <ul>
+          <li><input type="submit" value="Create TODO" /></li>
+        </ul>
+        </fieldset>
+      </form>
+
+      </div>
+    </section> <!-- new-user-section -->
+{% endblock content %}
