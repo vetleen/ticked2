@@ -1,11 +1,15 @@
+import os.path
 from django.conf.urls import patterns, include, url
 from TODOs.views import *
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
+stylesheets = os.path.join(os.path.dirname(__file__), 'stylesheets')
+
 urlpatterns = patterns('',
     (r'^$', view_todos),
+    (r'^stylesheets/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': stylesheets }),
     # Examples:
     # url(r'^$', 'ticked2.views.home', name='home'),
     # url(r'^ticked2/', include('ticked2.foo.urls')),
