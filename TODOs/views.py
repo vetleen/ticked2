@@ -40,7 +40,8 @@ def view_todos (request, page_number=1):
                     
     #What links to other todo/x/ will be provided?:
     number_of_pages_possible = int(((number_of_todos-1)/todos_per_page)+1)
-    assert (number_of_pages_possible > 0) "pages_possible should be higher than 0"
+    if number_of_pages_possible <= 0:
+        raise ValueError, "pages_possible should be higher than 0"
     if number_of_todos == 0: #this fakes the preceding if there are no todos by adding 1 to the pages_possible
         number_of_pages_possible = 1
     previous_page = None
