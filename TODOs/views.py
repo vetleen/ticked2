@@ -39,8 +39,8 @@ def view_todos (request, page_number=1):
                     todos_to_send.append(TODO)
                     
     #What links to other todo/x/ will be provided?:
-    if number_of_todos != 0: #to avoid dividing by 0 when there are 0 todos in unticked_todos!
-        number_of_pages_possible = int(((number_of_todos+1)/todos_per_page)+1)
+    number_of_pages_possible = int(((number_of_todos-1)/todos_per_page)+1)
+    assert (number_of_pages_possible > 0) "pages_possible should be higher than 0"
     if number_of_todos == 0: #this fakes the preceding if there are no todos by adding 1 to the pages_possible
         number_of_pages_possible = 1
     previous_page = None
