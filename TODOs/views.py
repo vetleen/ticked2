@@ -6,7 +6,7 @@ from django.template import Context, RequestContext
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.core.context_processors import csrf
-
+from TODOs.models import Todo
 
 ##def view_todos (request):
 ##    return HttpResponse("hello ticked2")
