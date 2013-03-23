@@ -9,7 +9,21 @@ stylesheets = os.path.join(os.path.dirname(__file__), 'stylesheets')
 
 urlpatterns = patterns('',
     (r'^$', view_todos),
+    (r'^todos/$', view_todos),
+    (r'^todos/(\d*)/$', view_todos),
+    (r'^addtodo/$', addTodoView),
+    (r'^ticktodo/(\d*)/$', tickTodoView),
+    (r'^unticktodo/(\d*)/$', unTickTodoView),
+    (r'^tickedtodos/$', tickedTodosView),
+    (r'^deletetodo/(\d*)/$', deleteTodoView),
+    (r'^edittodo/(\d*)/$', editTodoView),
     (r'^stylesheets/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': stylesheets }),
+    (r'^login/$', loginView),
+    (r'^logout/$', logoutView),
+    (r'^newuser/$', newUserView),
+    (r'^createuser/$', createUserView),
+
+
     # Examples:
     # url(r'^$', 'ticked2.views.home', name='home'),
     # url(r'^ticked2/', include('ticked2.foo.urls')),
