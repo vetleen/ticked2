@@ -18,6 +18,8 @@ def tickedTodosView(request, page_number=1):
     return HttpResponse("tickedTodosView")
 def addTodoView(request):
     return HttpResponse("tickedTodosView")
+def editTodoView(request, todoId):
+    return HttpResponse("tickedTodosView")
 def tickTodoView(request, todoId):
     return HttpResponse("tickedTodosView")
 def unTickTodoView(request, todoId):
