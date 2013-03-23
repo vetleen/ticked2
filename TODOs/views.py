@@ -41,8 +41,6 @@ def view_todos (request, page_number=1):
     #What links to other todo/x/ will be provided?:
     number_of_pages_possible = int(((number_of_todos-1)/todos_per_page)+1)
     if number_of_pages_possible <= 0:
-        raise ValueError, "pages_possible should be higher than 0"
-    if number_of_todos == 0: #this fakes the preceding if there are no todos by adding 1 to the pages_possible
         number_of_pages_possible = 1
     previous_page = None
     next_page = None
@@ -60,14 +58,17 @@ def view_todos (request, page_number=1):
 def tickedTodosView(request, page_number=1):
     if not request.user.is_authenticated():
         return redirect(newUserView)
+    #make sure data passed is proper Type
     page_number = int(page_number)
-    #Creates a list of all un-ticked todos:
+    
+    #finds all un-ticked todos:
     allTODOs = request.user.todo_set.all()
     unTickedTodos=[]
-    for TODO in reversed(allTODOs):
+    for TODO in (allTODOs):
         if TODO.todoIsTicked == True:
             unTickedTodos.append(TODO)
-    #Creates a list of the TODOs that will be shown:
+
+    #finds start-point and stop_point for next bit of code:
     number_of_todos = int(len(unTickedTodos))
     todos_per_page = 9 #this can be set freely
     stop_point = int(page_number)*int(todos_per_page)
@@ -77,16 +78,17 @@ def tickedTodosView(request, page_number=1):
     if stop_point == 0:
         stop_point = 1
     count=0
+    
+    #adds exactly 9 todos numbered from start_point to stop_point to todos_to_send
     todos_to_send = []
-    page_number=int(page_number)
     for TODO in unTickedTodos:
             count=count+1
             if count >= start_point and count <= stop_point:
                     todos_to_send.append(TODO)
+                    
     #What links to other todo/x/ will be provided?:
-    if number_of_todos != 0: #to avoid dividing by 0 when there are 0 todos in unticked_todos!
-        number_of_pages_possible = int((number_of_todos/todos_per_page)+1)
-    if number_of_todos == 0: #this fakes the preceding if, by adding 1 to the pages possible var even if it is 0
+    number_of_pages_possible = int(((number_of_todos-1)/todos_per_page)+1)
+    if number_of_pages_possible <= 0:
         number_of_pages_possible = 1
     previous_page = None
     next_page = None
@@ -94,11 +96,11 @@ def tickedTodosView(request, page_number=1):
             previous_page = (page_number - 1)
     if page_number < number_of_pages_possible:
             next_page = (page_number + 1)
-    #The response:
-    c = {'TODOs': todos_to_send, 'currentpage': page_number, 'lastpage': number_of_pages_possible, 'nextpage': next_page, 'previouspage': previous_page}
 
+    #respond to request:
+    c = {'TODOs': todos_to_send, 'currentpage': page_number, 'lastpage': number_of_pages_possible, 'nextpage': next_page, 'previouspage': previous_page}
     c.update(csrf(request))
-    template = "tickedtodos.html"
+    template = "todos.html"
     return render_to_response(template, c, context_instance=RequestContext(request))
 
 def addTodoView(request):
