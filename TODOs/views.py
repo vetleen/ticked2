@@ -190,7 +190,7 @@ def deleteTodoView(request, todoId):
         output = "It seems that caused the server to try to delete someone elses TODO.."
         return HttpResponse(output) 
 
-## Users, logins etc.
+## Users, logins etc. 
 def loginView(request):
     username = request.POST['username']
     password = request.POST['password']
