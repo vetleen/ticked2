@@ -315,7 +315,7 @@ a.loginout-link:hover{
 }
 
 /* the create new TODO-form*/
-.new-todo-box { 
+#new-todo-box { 
 	background: #ffffcc;
 	float: left;
 	display: inline;
@@ -330,7 +330,7 @@ a.loginout-link:hover{
 	height: 248px;
 	overflow: hidden;
 }
-.new-todo-box textarea{
+#new-todo-box textarea{
 	resize: none;
 }
 
