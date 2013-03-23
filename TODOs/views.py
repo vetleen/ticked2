@@ -156,22 +156,14 @@ def tickTodoView(request, todoId):
         return HttpResponse(output)
 
     #all of this could be replaced by if todoToTick is in User.todos_set then tick it...
-    try:
-        todoToTick = Todo.objects.get(id=todoId)
-    except Todo.DoesNotExist as e:
-        output ="Sneaky, sneaky, not allowed..."
+    todoToTick = Todo.objects.get(id=todoId)
+    if todoToTick.owner == request.user:
+        todoToTick.todoIsTicked = True
+        todoToTick.save()
+        return redirect(view_todos)
     else:
-        if todoToTick is not None:
-            if todoToTick.owner == request.user:
-                todoToTick.todoIsTicked = True
-                todoToTick.save()
-                return redirect(view_todos)
-            else:
-                output = "Sneaky, Sneaky, not allowed.."
-                return HttpResponse(output)
-        else:
-                output = "User is logged in /n requested TODO does exist /n todoToTick variable is not set"
-                return HttpResponse(output)
+        output = "Sneaky, Sneaky, not allowed.."
+        return HttpResponse(output)
 def unTickTodoView(request, todoId):
     #can add errormessage if Todo dosen't exist...
     if not request.user.is_authenticated():
