@@ -10,6 +10,6 @@ from django.shortcuts import render_to_response, redirect
 ##def view_todos (request):
 ##    return HttpResponse("hello ticked2")
 ##    
-def view:rodos(request):
+def view_todos(request):
     template = "base.html"
     return render_to_response(template)
